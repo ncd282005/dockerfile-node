@@ -32,7 +32,7 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node0server
             docker stop node0server || true
             docker rm node0server || true
-            echo "USERNAME=${{ secrets.USERNAME }}" > .env
-            echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
-            echo "SECRET_MESSAGE=${{ secrets.SECRET_MESSAGE }}" >> .env
+            echo "USERNAME=system" > .env
+            echo "PASSWORD=1234" >> .env
+            echo "SECRET_MESSAGE=Deployed secret!" >> .env
             docker run -d --env-file .env -p 3000:3000 --name node0server  ${{ secrets.DOCKERHUB_USERNAME }}/node0server
