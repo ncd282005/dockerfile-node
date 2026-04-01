@@ -19,8 +19,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/node-server:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/node-server:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/node0server:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/node0server:latest
 
       - name: Deploy to remote server
         uses: appleboy/ssh-action@v1.0.3
@@ -29,10 +29,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node-server
-            docker stop node-server || true
-            docker rm node-server || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node0server
+            docker stop node0server || true
+            docker rm node0server || true
             echo "USERNAME=${{ secrets.USERNAME }}" > .env
             echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
             echo "SECRET_MESSAGE=${{ secrets.SECRET_MESSAGE }}" >> .env
-            docker run -d --env-file .env -p 3000:3000 --name node-server  ${{ secrets.DOCKERHUB_USERNAME }}/node-server
+            docker run -d --env-file .env -p 3000:3000 --name node0server  ${{ secrets.DOCKERHUB_USERNAME }}/node0server
